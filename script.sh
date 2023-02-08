@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+$id_file=$1
 n=1
 n_donwloads=120
 
@@ -12,6 +13,7 @@ then
     echo "Creating data folder"
     mkdir $data_dir
 fi
+
 mkdir "tmp"
 
 echo "Number of ids: $n_ids"
