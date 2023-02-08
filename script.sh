@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 n=1
-n_donwloads=3
+n_donwloads=120
 
 n_ids=$(wc -l < $id_file)
 
