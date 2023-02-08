@@ -17,11 +17,11 @@ echo "Files pending download: $(($n_ids-$n_files))"
 n=1
 
 while (( n <= n_donwloads )) && read id; do
-    file="tmp/product-$id.json"
+    file="product-$id.json"
     url="https://tienda.mercadona.es/api/products/$id/?lang=es&wh=alc1"
-    if [ ! -f "$file" ]; then
+    if [ ! -f "data/$file" ]; then
         echo "$n. $id"
-        curl --fail --show-error --silent $url --output $file
+        curl --fail --show-error --silent $url --output "tmp/$file"
         ((n++))
         sleep 2s
     fi
