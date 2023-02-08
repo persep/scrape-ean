@@ -17,7 +17,7 @@ echo "Files pending download: $(($n_ids-$n_files))"
 
 while read id; do
     file="tmp/product-$id.json"
-    url="https://tienda.mercadona.es/api/products/$id"
+    url="https://tienda.mercadona.es/api/products/$id/?lang=es&wh=alc1"
     if [ ! -f "$file" ]; then
         echo "$n. $id"
         curl --fail --show-error --silent $url --output $file
