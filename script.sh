@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-$id_file=$1
+id_file=$1
 n=1
 n_donwloads=120
 
