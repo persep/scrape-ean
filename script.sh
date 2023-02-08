@@ -8,13 +8,8 @@ n_ids=$(wc -l < $id_file)
 
 n_files=$(ls "data" | wc -l)
 
-if [[ ! -d $data_dir ]]
-then
-    echo "Creating data folder"
-    mkdir $data_dir
-fi
-
-mkdir "tmp"
+echo "Creating folder tmp"
+mkdir "./tmp"
 
 echo "Number of ids: $n_ids"
 echo "Number of files: $n_files"
