@@ -47,7 +47,8 @@ jobs:
           name: products2
           path: data
       - name: Number of files in data
-        run: echo "Number of files in data folder $(ls data | wc -l)"
+        shell: bash
+        run: echo "Number of files in data folder: $(ls data | wc -l)"
       - name: Commit files
         run: |
           git config --local user.name actions-user
