@@ -1,0 +1,60 @@
+name: Scrape EANs Parallel
+
+on:
+  workflow_dispatch
+
+jobs:
+  job_1:
+    name: Scrape file 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run scrape 1
+        run: bash script.sh ids_1.txt
+      - name: Upload products
+        uses: actions/upload-artifact@v3
+        with:
+          name: products1
+          path: tmp/*
+
+  job_2:
+   name: Scrape file 2
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+     - name: Run scrape 2
+       run: bash script.sh ids_2.txt
+     - name: Upload products
+       uses: actions/upload-artifact@v3
+       with:
+         name: products2
+         path: tmp/*
+
+  job_3:
+    needs: [job_1, job_2]
+    name: Join files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download products 1
+        uses: actions/download-artifact@v3
+        with:
+          name: products1
+          path: data
+      - name: Download products 2
+        uses: actions/download-artifact@v3
+        with:
+          name: products2
+          path: data
+      - name: Number of files in data
+        run: echo "Number of files in data: $(ls "data" | wc -l)" 
+      - name: Commit files
+        run: |
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add data/*
+          git commit -m "GH ACTION Add products $(date)" || echo "Nothing to commit"
+          git push origin master
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
