@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run scrape 1
-        run: bash script.sh ids_1.txt
+        run: bash script.sh ids_00.txt
       - name: Upload products
         uses: actions/upload-artifact@v3
         with:
@@ -23,7 +23,7 @@ jobs:
    steps:
      - uses: actions/checkout@v3
      - name: Run scrape 2
-       run: bash script.sh ids_2.txt
+       run: bash script.sh ids_01.txt
      - name: Upload products
        uses: actions/upload-artifact@v3
        with:
@@ -31,7 +31,33 @@ jobs:
          path: tmp/*
 
   job_3:
-    needs: [job_1, job_2]
+   name: Scrape file 3
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+     - name: Run scrape 3
+       run: bash script.sh ids_02.txt
+     - name: Upload products
+       uses: actions/upload-artifact@v3
+       with:
+         name: products3
+         path: tmp/*
+
+  job_4:
+   name: Scrape file 4
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+     - name: Run scrape 4
+       run: bash script.sh ids_03.txt
+     - name: Upload products
+       uses: actions/upload-artifact@v3
+       with:
+         name: products4
+         path: tmp/*
+
+  job_5:
+    needs: [job_1, job_2, job_3, job_4]
     name: Download files
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +71,16 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: products2
+          path: data
+      - name: Download products 3
+        uses: actions/download-artifact@v3
+        with:
+          name: products3
+          path: data
+      - name: Download products 4
+        uses: actions/download-artifact@v3
+        with:
+          name: products4
           path: data
       - name: Number of files in data
         run: echo "Number of files in data folder $(ls data | wc -l)"
