@@ -12,7 +12,6 @@ mkdir "./tmp"
 
 echo "Number of ids: $n_ids"
 echo "Number of files: $n_files"
-echo "Files pending download: $(($n_ids-$n_files))"
 
 n=1
 

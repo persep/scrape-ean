@@ -1,7 +1,9 @@
 name: Scrape EANs Parallel
 
 on:
-  workflow_dispatch
+  # workflow_dispatch
+  schedule:
+    - cron: '*/10 * * * *'
 
 jobs:
   job_1:
