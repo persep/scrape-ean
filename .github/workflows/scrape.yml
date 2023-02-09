@@ -69,21 +69,25 @@ jobs:
         with:
           name: products1
           path: data
+        continue-on-error: true
       - name: Download products 2
         uses: actions/download-artifact@v3
         with:
           name: products2
           path: data
+        continue-on-error: true
       - name: Download products 3
         uses: actions/download-artifact@v3
         with:
           name: products3
           path: data
+        continue-on-error: true
       - name: Download products 4
         uses: actions/download-artifact@v3
         with:
           name: products4
           path: data
+        continue-on-error: true
       - name: Number of files in data
         run: echo "Number of files in data folder $(ls data | wc -l)"
       - name: Commit files
